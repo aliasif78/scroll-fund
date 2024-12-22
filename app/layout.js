@@ -1,11 +1,17 @@
+// Fonts
 import { Geist, Geist_Mono } from "next/font/google";
 
+// Components
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import SessionWrapper from "./components/SessionWrapper";
+import ReCaptchaWrapper from "./components/ReCaptchaProvider";
 
-import { ToastContainer } from 'react-toastify';
+// Dependancies
+import { ToastContainer } from "react-toastify";
 
-import 'react-toastify/dist/ReactToastify.css';
+// Styles
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,10 +33,16 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NavBar />
-        <ToastContainer />
-        {children}
-        <Footer />
+        <SessionWrapper>
+          <ReCaptchaWrapper>
+            <NavBar />
+            <ToastContainer />
+
+            {children}
+
+            <Footer />
+          </ReCaptchaWrapper>
+        </SessionWrapper>
       </body>
     </html>
   );

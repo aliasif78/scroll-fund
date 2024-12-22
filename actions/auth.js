@@ -1,26 +1,20 @@
-"use server"
+"use server";
 
-export const signUpSubmitHandler = async (e) => {
-    // console.log(e.get("name"), e.get("username"), e.get("email"), e.get("password"), e.get("reenterpassword"))
+export const signUpSubmitHandler = async (formData) => {
+  const { name, username, country, city, email, password, reenterpassword } = formData;
 
-    const name = e.get("name")
-    const username = e.get("username")
-    const country = e.get("country")
-    const city = e.get("city")
-    const email = e.get("email")
-    const password = e.get("password")
-    const reenterpassword = e.get("reenterpassword")
+  // Presence checks
+  if (!name || !email || !password || !reenterpassword || (username && (country || city)) || (!username && (!country || !city))) {
+    return { error: "Incomplete form data." };
+  }
 
-    if (!name || !email || !password || !reenterpassword || (username && (country || city)) || (!username && (!country || !city))) {
-        throw new Error('Please fill in all required fields');
-    }
+  // Password Validation
+  if (password !== reenterpassword) throw new Error("Passwords do not match.");
 
-    if (password !== reenterpassword) {
-        throw new Error('Passwords do not match.');
-    }
+  // Check for user or charity
+  // Check for existing username
+  // Check for existing email
+  return { message: "User created successfully." };
+};
 
-    // Check for user or charity
-    // Check for existing username
-    // Check for existing email
-    return  { success: "User created successfully" }
-}
+export const loginSubmitHandler = async (e) => {};
