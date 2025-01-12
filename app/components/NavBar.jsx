@@ -17,7 +17,14 @@ const NavBar = () => {
       <ul className="flex flex-row gap-[2rem]">
         <li className="text-neutral-200 hover:text-cyan-300 transition duration-200 cursor-pointer">Charities</li>
         <li className="text-neutral-200 hover:text-cyan-300 transition duration-200 cursor-pointer">Feed</li>
-        <li className="text-neutral-200 hover:text-cyan-300 transition duration-200 cursor-pointer">Profile</li>
+
+        {session && (
+          <li className="text-neutral-200 hover:text-cyan-300 transition duration-200 cursor-pointer">
+            <Link href={`/users/${encodeURIComponent(session.user.email)}`} className="cursor-pointer">
+              Profile
+            </Link>
+          </li>
+        )}
       </ul>
 
       {session ? (
